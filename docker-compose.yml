@@ -1,0 +1,8 @@
+version: '3'
+services:
+    php:
+        image: php:7.0-cli
+        volumes:
+            - ./:/var/run
+            - ./Redsms:/var/run/Redsms
+        command: [ "php", "/var/run/sample.php" ]

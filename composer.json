@@ -1,0 +1,18 @@
+{
+  "name": "redsms/message-api-simple",
+  "type": "library",
+  "description": "Класс для работы с API сервиса redsms.ru",
+  "keywords": ["sms", "redsms", "redsms.ru"],
+  "homepage": "https://github.com/redsms/message-api-simple",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "redsms.ru",
+      "email": "admin@redsms.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "minimum-stability": "stable"
+}
