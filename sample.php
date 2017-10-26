@@ -33,9 +33,8 @@ try {
     }
 
 } catch (\Exception $e) {
-    echo "error code ".$e->getCode()."\n";
-    $errorMessage = json_decode($e->getMessage(), true);
-    print_r($errorMessage);
+    echo "error code: ".$e->getCode()."\n";
+    echo "error message: ".$e->getMessage()."\n";
 }
 
-echo "\n";
+echo "complete.\n";

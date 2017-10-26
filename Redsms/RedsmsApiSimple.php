@@ -78,7 +78,7 @@ class RedsmsApiSimple
         }
 
         if ($info['http_code'] != 200) {
-            throw new \Exception($responseArray, $info['http_code']);
+            throw new \Exception($responseArray['error_message'], $info['http_code']);
         }
 
         return $responseArray;
