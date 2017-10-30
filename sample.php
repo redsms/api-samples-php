@@ -16,10 +16,10 @@ try {
     print_r($smsApi->clientInfo());
 
     echo "Send sms message: \n";
-    $sendResult = $smsApi->send($testNumber, 'Hello,it is test!', 'REDSMS.RU');
+    $sendResult = $smsApi->send($testNumber, 'It is test!', 'REDSMS.RU');
     if ($messages = ($sendResult['items'] ?? [])) {
         foreach ($messages as $message) {
-            echo $message['phone'].":".$message['uuid'];
+            echo $message['to'].":".$message['uuid']."\n";
             $lastMessageUuid = $message['uuid'];
         }
     }
