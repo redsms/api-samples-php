@@ -15,7 +15,7 @@ try {
     echo "Client info: \n";
     print_r($smsApi->clientInfo());
 
-    $path = "/var/run/REDSMS.png";
+    $path = "/var/run/data/image/REDSMS.png";
     $files = $smsApi->uploadFile($path);
 
     echo "Файлов отправлено" . count($files)  . PHP_EOL;
