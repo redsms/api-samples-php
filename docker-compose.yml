@@ -5,4 +5,4 @@ services:
         volumes:
             - ./:/var/run
             - ./Redsms:/var/run/Redsms
-        command: [ "php", "/var/run/sample.php" ]
+        command: [ "php", "/var/run/${SCRIPT}" ]
