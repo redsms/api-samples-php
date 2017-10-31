@@ -4,6 +4,9 @@ namespace Redsms;
 
 class RedsmsApiSimple
 {
+    const SMS_TYPE = 'sms';
+    const VIBER_TYPE = 'viber';
+
     protected $login;
     protected $apiKey;
 
@@ -22,7 +25,25 @@ class RedsmsApiSimple
         return $this->sendGet($methodUrl);
     }
 
-    public function send($to, $text, $from, $route = 'sms')
+    public function deletFile(int $idFile)
+    {
+        $methodUrl = 'storage/' . $idFile;
+        return $this->sendDelete($methodUrl);
+    }
+
+    public function fileInfo()
+    {
+        $methodUrl = 'storage';
+        return $this->sendGet($methodUrl);
+    }
+
+    public function uploadFile($fileNAME)
+    {
+        $methodUrl = 'storage';
+        return $this->postFile($methodUrl, $fileNAME);
+    }
+
+    public function send($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
     {
         $methodUrl = 'message';
         $to = is_array($to) ? $to : [$to];
@@ -32,6 +53,22 @@ class RedsmsApiSimple
             'text' => $text,
             'from' => $from,
             'route' => $route,
+        ];
+
+        return $this->sendPost($methodUrl, $data);
+    }
+    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl) {
+        $methodUrl = 'message';
+
+        $to = is_array($to) ? $to : [$to];
+        $data = [
+            'to' => implode(',', $to),
+            'text' => $text,
+            'from' => $from,
+            'route' => RedsmsApiSimple::VIBER_TYPE,
+            'viber.btnText' => $btnText,
+            'viber.btnUrl' => $btnUrl,
+            'viber.imageUrl' => $imageUrl,
         ];
 
         return $this->sendPost($methodUrl, $data);
@@ -66,6 +103,28 @@ class RedsmsApiSimple
         return $this->getCurlResult($curlResource);
     }
 
+    protected function sendDelete($url)
+    {
+        $curlResource = curl_init();
+        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url);
+        curl_setopt($curlResource, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders());
+        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
+
+        return $this->getCurlResult($curlResource);
+    }
+
+    protected function postFile($url, $name)
+    {
+        $curlResource = curl_init();
+        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url);
+        curl_setopt($curlResource, CURLOPT_POST, true);
+        curl_setopt($curlResource, CURLOPT_POSTFIELDS, ['file' => new \CURLFile($name)]);
+        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders());
+        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
+        return $this->getCurlResult($curlResource);
+    }
+
     protected function getCurlResult($curlResource)
     {
         $response = curl_exec($curlResource);
@@ -84,7 +143,7 @@ class RedsmsApiSimple
         return $responseArray;
     }
 
-    protected function getHeaders($data)
+    protected function getHeaders($data = [])
     {
         ksort($data);
         reset($data);
