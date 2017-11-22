@@ -5,7 +5,10 @@ namespace Redsms;
 class RedsmsApiSimple
 {
     const SMS_TYPE = 'sms';
+
     const VIBER_TYPE = 'viber';
+
+    const RESEND_TYPE = 'viber,sms';
 
     protected $login;
     protected $apiKey;
@@ -43,7 +46,7 @@ class RedsmsApiSimple
         return $this->postFile($methodUrl, $fileNAME);
     }
 
-    public function send($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
+    public function sendSMS($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
     {
         $methodUrl = 'message';
         $to = is_array($to) ? $to : [$to];
@@ -57,6 +60,7 @@ class RedsmsApiSimple
 
         return $this->sendPost($methodUrl, $data);
     }
+
     public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl) {
         $methodUrl = 'message';
 
@@ -71,6 +75,12 @@ class RedsmsApiSimple
             'viber.imageUrl' => $imageUrl,
         ];
 
+        return $this->sendPost($methodUrl, $data);
+    }
+
+    public function sendMessage($data)
+    {
+        $methodUrl = 'message';
         return $this->sendPost($methodUrl, $data);
     }
 

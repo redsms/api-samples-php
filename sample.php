@@ -4,9 +4,9 @@ require 'Redsms/RedsmsApiSimple.php';
 
 echo "redsms.ru api test \n";
 
-$login = 'you_login';
-$apiKey = 'you_api_key';
-$testNumber = 'you_number';
+$login = 'igorsux';
+$apiKey = 'testapikey';
+$testNumber = '+79296643352';
 
 $smsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
 $lastMessageUuid = '';
@@ -16,7 +16,7 @@ try {
     print_r($smsApi->clientInfo());
 
     echo "Send sms message: \n";
-    $sendResult = $smsApi->send($testNumber, 'It is test!', 'REDSMS.RU');
+    $sendResult = $smsApi->sendSMS($testNumber, 'It is test!', 'REDSMS.RU');
     if ($messages = ($sendResult['items'] ?? [])) {
         foreach ($messages as $message) {
             echo $message['to'].":".$message['uuid']."\n";

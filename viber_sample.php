@@ -8,12 +8,12 @@ $login = 'you_login';
 $apiKey = 'you_api_key';
 $testNumber = 'you_number';
 
-$smsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
+$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
 $lastMessageUuid = '';
 try {
 
     echo "Client info: \n";
-    print_r($smsApi->clientInfo());
+    print_r($redsmsApi->clientInfo());
 
     $path = "/var/run/data/image/REDSMS.png";
     $files = $smsApi->uploadFile($path);
@@ -23,14 +23,26 @@ try {
     $file = array_shift($files['items']);
     $buttonText = "Кнопка";
     $buttonUrl = "https://cp.redsms.ru/";
-    $text = "Тестовое сообщение";
-    $imageUrl = "";
+    $textViber = "Тестовое сообщение";
+
     if(isset($file)) {
         $imageUrl = $file['url'];
+    } else {
+        $imageUrl = "";
     }
 
     $lastMessageUuid = '';
-    $sendResult = $smsApi->sendViber($testNumber, $text, 'REDSMS.RU', $buttonText, $buttonUrl, $imageUrl);
+    $data = [
+        'to' => $testNumber,
+        'texct' => $textViber,
+        'from' => 'REDSMS.RU',
+        'route' => \Redsms\RedsmsApiSimple::VIBER_TYPE,
+        'viber.btnText' => $buttonText,
+        'viber.btnUrl' => $buttonUrl,
+        'viber.imageUrl' => $imageUrl,
+    ];
+    $sendResult = $redsmsApi->sendMessage($data);
+
     if ($messages = ($sendResult['items'] ?? [])) {
         foreach ($messages as $message) {
             echo $message['to'].":".$message['uuid']."\n";
