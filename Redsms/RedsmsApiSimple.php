@@ -5,7 +5,7 @@ namespace Redsms;
 class RedsmsApiSimple
 {
     const SMS_TYPE = 'sms';
-
+  
     const VIBER_TYPE = 'viber';
 
     const RESEND_TYPE = 'viber,sms';
@@ -29,6 +29,7 @@ class RedsmsApiSimple
     }
 
     public function deleteFile(int $idFile)
+
     {
         $methodUrl = 'storage/' . $idFile;
         return $this->sendDelete($methodUrl);
@@ -45,8 +46,9 @@ class RedsmsApiSimple
         $methodUrl = 'storage';
         return $this->postFile($methodUrl, $fileNAME);
     }
-
+  
     public function sendSMS($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
+
     {
         $methodUrl = 'message';
         $to = is_array($to) ? $to : [$to];
@@ -56,6 +58,22 @@ class RedsmsApiSimple
             'text' => $text,
             'from' => $from,
             'route' => $route,
+        ];
+
+        return $this->sendPost($methodUrl, $data);
+    }
+    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl) {
+        $methodUrl = 'message';
+
+        $to = is_array($to) ? $to : [$to];
+        $data = [
+            'to' => implode(',', $to),
+            'text' => $text,
+            'from' => $from,
+            'route' => RedsmsApiSimple::VIBER_TYPE,
+            'viber.btnText' => $btnText,
+            'viber.btnUrl' => $btnUrl,
+            'viber.imageUrl' => $imageUrl,
         ];
 
         return $this->sendPost($methodUrl, $data);
