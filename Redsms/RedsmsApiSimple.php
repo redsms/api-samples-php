@@ -79,23 +79,6 @@ class RedsmsApiSimple
         return $this->sendPost($methodUrl, $data);
     }
 
-    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl) {
-        $methodUrl = 'message';
-
-        $to = is_array($to) ? $to : [$to];
-        $data = [
-            'to' => implode(',', $to),
-            'text' => $text,
-            'from' => $from,
-            'route' => RedsmsApiSimple::VIBER_TYPE,
-            'viber.btnText' => $btnText,
-            'viber.btnUrl' => $btnUrl,
-            'viber.imageUrl' => $imageUrl,
-        ];
-
-        return $this->sendPost($methodUrl, $data);
-    }
-
     public function sendMessage($data)
     {
         $methodUrl = 'message';

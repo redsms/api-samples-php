@@ -3,7 +3,14 @@
 For use the service you need to register and specify api-key in the settings
 https://cp.redsms.ru/settings/
 
-##Test this sample with docker
+
+**Test this sample**
+
+```
+ php -f sample.php
+```
+
+**Test this sample with docker**
 
 #### copy .env.dist to .env and change it
 

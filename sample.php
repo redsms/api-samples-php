@@ -4,9 +4,9 @@ require 'Redsms/RedsmsApiSimple.php';
 
 echo "redsms.ru api test \n";
 
-$login = 'igorsux';
-$apiKey = 'testapikey';
-$testNumber = '+79296643352';
+$login = 'you_login';
+$apiKey = 'you_api_key';
+$testNumber = 'you_number';
 
 $smsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
 $lastMessageUuid = '';
