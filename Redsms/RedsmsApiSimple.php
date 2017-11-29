@@ -5,7 +5,7 @@ namespace Redsms;
 class RedsmsApiSimple
 {
     const SMS_TYPE = 'sms';
-  
+
     const VIBER_TYPE = 'viber';
 
     const RESEND_TYPE = 'viber,sms';
@@ -25,30 +25,32 @@ class RedsmsApiSimple
     public function clientInfo()
     {
         $methodUrl = 'client/info';
+
         return $this->sendGet($methodUrl);
     }
 
     public function deleteFile(int $idFile)
-
     {
-        $methodUrl = 'storage/' . $idFile;
+        $methodUrl = 'storage/'.$idFile;
+
         return $this->sendDelete($methodUrl);
     }
 
     public function fileInfo()
     {
         $methodUrl = 'storage';
+
         return $this->sendGet($methodUrl);
     }
 
     public function uploadFile($fileNAME)
     {
         $methodUrl = 'storage';
+
         return $this->postFile($methodUrl, $fileNAME);
     }
-  
-    public function sendSMS($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
 
+    public function sendSMS($to, $text, $from, $route = RedsmsApiSimple::SMS_TYPE)
     {
         $methodUrl = 'message';
         $to = is_array($to) ? $to : [$to];
@@ -62,7 +64,9 @@ class RedsmsApiSimple
 
         return $this->sendPost($methodUrl, $data);
     }
-    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl) {
+
+    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl)
+    {
         $methodUrl = 'message';
 
         $to = is_array($to) ? $to : [$to];
@@ -82,12 +86,14 @@ class RedsmsApiSimple
     public function sendMessage($data)
     {
         $methodUrl = 'message';
+
         return $this->sendPost($methodUrl, $data);
     }
 
     public function messageInfo($uuid)
     {
         $methodUrl = 'message/'.$uuid;
+
         return $this->sendGet($methodUrl);
     }
 
@@ -133,6 +139,7 @@ class RedsmsApiSimple
         curl_setopt($curlResource, CURLOPT_POSTFIELDS, ['file' => new \CURLFile($name)]);
         curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders());
         curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
+
         return $this->getCurlResult($curlResource);
     }
 
