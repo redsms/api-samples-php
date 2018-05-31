@@ -19,7 +19,7 @@ class RedsmsApiSimple
     {
         $this->login = $login;
         $this->apiKey = $apiKey;
-        $this->apiUrl = $apiUrl ?? $this->apiUrl;
+        $this->apiUrl = $apiUrl ? $apiUrl : $this->apiUrl;
     }
 
     public function clientInfo()
@@ -165,7 +165,7 @@ class RedsmsApiSimple
     {
         ksort($data);
         reset($data);
-        $ts = microtime().random_int(0, 10000);
+        $ts = microtime().rand(0, 10000);
 
         return [
             'login: '.$this->login,

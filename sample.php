@@ -17,7 +17,7 @@ try {
 
     echo "Send sms message: \n";
     $sendResult = $smsApi->sendSMS($testNumber, 'It is test!', 'REDSMS.RU');
-    if ($messages = ($sendResult['items'] ?? [])) {
+    if (!empty($sendResult['items']) && $messages = $sendResult['items'] ) {
         foreach ($messages as $message) {
             echo $message['to'].":".$message['uuid']."\n";
             $lastMessageUuid = $message['uuid'];

@@ -15,10 +15,10 @@ try {
     echo "Client info: \n";
     print_r($redsmsApi->clientInfo());
 
-    $path = "/var/run/data/image/REDSMS.png";
-    $files = $smsApi->uploadFile($path);
+    $path = "./data/image/REDSMS.png";
+    $files = $redsmsApi->uploadFile($path);
 
-    echo "Файлов отправлено" . count($files)  . PHP_EOL;
+    echo "Файлов отправлено" . count($files['items'])  . PHP_EOL;
 
     $file = array_shift($files['items']);
     $buttonText = "Кнопка";
@@ -34,7 +34,7 @@ try {
     $lastMessageUuid = '';
     $data = [
         'to' => $testNumber,
-        'texct' => $textViber,
+        'text' => $textViber,
         'from' => 'REDSMS.RU',
         'route' => \Redsms\RedsmsApiSimple::VIBER_TYPE,
         'viber.btnText' => $buttonText,
@@ -43,7 +43,7 @@ try {
     ];
     $sendResult = $redsmsApi->sendMessage($data);
 
-    if ($messages = ($sendResult['items'] ?? [])) {
+    if (!empty($sendResult['items']) && $messages = $sendResult['items'] ) {
         foreach ($messages as $message) {
             echo $message['to'].":".$message['uuid']."\n";
             $lastMessageUuid = $message['uuid'];
@@ -51,10 +51,10 @@ try {
     }
     if ($lastMessageUuid) {
         echo "Get message info: \n";
-        print_r($smsApi->messageInfo($lastMessageUuid));
+        print_r($redsmsApi->messageInfo($lastMessageUuid));
         echo "wait 10 sec... \n";
         sleep(10);
-        print_r($smsApi->messageInfo($lastMessageUuid));
+        print_r($redsmsApi->messageInfo($lastMessageUuid));
     }
 } catch (\Exception $e) {
     echo "error code: ".$e->getCode()."\n";
