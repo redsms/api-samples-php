@@ -4,19 +4,18 @@ require 'Redsms/RedsmsApiSimple.php';
 
 echo "redsms.ru api test \n";
 
-$login = 'you_login';
-$apiKey = 'you_api_key';
+$authData = include 'authData.php';
+$login = $authData['login'];
+$apiKey = $authData['apiKey'];
+
 $testNumber = 'you_number';
+$smsSenderName = 'you_SenderName';
 
 $smsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
 $lastMessageUuid = '';
 try {
-
-    echo "Client info: \n";
-    print_r($smsApi->clientInfo());
-
     echo "Send sms message: \n";
-    $sendResult = $smsApi->sendSMS($testNumber, 'It is test!', 'REDSMS.RU');
+    $sendResult = $smsApi->sendSMS($testNumber, 'It is test!', $smsSenderName);
     if (!empty($sendResult['items']) && $messages = $sendResult['items'] ) {
         foreach ($messages as $message) {
             echo $message['to'].":".$message['uuid']."\n";
@@ -26,10 +25,10 @@ try {
 
     if ($lastMessageUuid) {
         echo "Get message info: \n";
-        print_r($smsApi->messageInfo($lastMessageUuid));
+        echo json_encode($smsApi->messageInfo($lastMessageUuid)).PHP_EOL;
         echo "wait 10 sec... \n";
         sleep(10);
-        print_r($smsApi->messageInfo($lastMessageUuid));
+        echo json_encode($smsApi->messageInfo($lastMessageUuid)).PHP_EOL;
     }
 
 } catch (\Exception $e) {

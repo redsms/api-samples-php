@@ -29,7 +29,7 @@ class RedsmsApiSimple
         return $this->sendGet($methodUrl);
     }
 
-    public function deleteFile(int $idFile)
+    public function deleteFile($idFile)
     {
         $methodUrl = 'storage/'.$idFile;
 

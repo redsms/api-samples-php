@@ -1,2 +1,6 @@
 .idea
 .env
+/samples/authData.php
+test.sh
+testDev.sh
+dev-compose.yml

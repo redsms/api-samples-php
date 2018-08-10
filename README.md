@@ -7,21 +7,10 @@ https://cp.redsms.ru/settings/
 **Test this sample**
 
 ```
- php -f sample.php
+ php -f samples/clientInfoSample.php
 ```
 
-**Test this sample with docker**
-
-#### copy .env.dist to .env and change it
-
+**Test this sample with docker and docker-compose**
 ```
- cp .env.dist .env
-```
-
-##### For run sample.php 
-* set SCRIPT=sample.php in .env
-
-* then
-```
-docker-compose up
+docker-compose run php php -f samples/clientInfoSample.php
 ```

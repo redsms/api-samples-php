@@ -4,9 +4,12 @@ require 'Redsms/RedsmsApiSimple.php';
 
 echo "viber resend \n";
 
-$login = 'you_login';
-$apiKey = 'you_api_key';
+$authData = include 'authData.php';
+$login = $authData['login'];
+$apiKey = $authData['apiKey'];
+
 $testNumber = 'you_number';
+$viberSenderName = 'you_SenderName';
 
 $smsApi = new  \Redsms\RedsmsApiSimple($login, $apiKey);
 
@@ -17,7 +20,7 @@ try {
     $body = [
         'to' => $testNumber,
         'text' => $textViber,
-        'from' => 'REDSMS.RU',
+        'from' => $viberSenderName,
         'route' => \Redsms\RedsmsApiSimple::RESEND_TYPE,
         'sms.text' => $textSms,
         'viber.btnText' => 'text',
@@ -25,7 +28,7 @@ try {
         'viber.validity' => 10
     ];
     $sendResult = $smsApi->sendMessage($body);
-    print_r($sendResult);
+    echo json_encode($sendResult).PHP_EOL;
 } catch (\Exception $e) {
     echo "error code: ".$e->getCode()."\n";
     echo "error message: ".$e->getMessage()."\n";
