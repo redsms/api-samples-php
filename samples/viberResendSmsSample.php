@@ -9,7 +9,7 @@ echo 'REDSMS.RU viber resend'.PHP_EOL;;
 $login = $config['login'];
 $apiKey = $config['apiKey'];
 
-$redsmsApi = new  \Redsms\RedsmsApiSimple($login, $apiKey, $config['apiUrl']);
+$redsmsApi = new  \Redsms\RedsmsApiSimple($login, $apiKey);
 
 $testNumber = $config['phone'];
 $viberSenderName = $config['viberSenderName'];

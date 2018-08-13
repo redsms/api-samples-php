@@ -9,7 +9,7 @@ echo 'REDSMS.RU client information'.PHP_EOL;
 $login = $config['login'];
 $apiKey = $config['apiKey'];
 
-$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, $config['apiUrl']);
+$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
 echo 'Client info: '.PHP_EOL;
 try {
     echo json_encode($redsmsApi->clientInfo());
