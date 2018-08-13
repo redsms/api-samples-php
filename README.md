@@ -4,13 +4,15 @@ To use the service you need to register and specify API key in the [settings](ht
 
 ## Configuration
 
-copy the sample configuration file
+Copy the sample configuration file.
 
 ```
 cp config.php.dist config.php
 ```
 
-put your API key and other data in config.php and run the following command
+Put your API key and other data in `config.php` 
+
+## for view client info run the following command
 
 ```
  php -f samples/clientInfoSample.php
