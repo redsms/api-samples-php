@@ -1,0 +1,9 @@
+<?php
+
+return [
+    'login' => 'you_login',
+    'apiKey' => 'you_api_key',
+    'phone' => 'you_phone',
+    'smsSenderName' => 'REDSMS.RU',
+    'viberSenderName' => 'REDSMS.RU',
+];

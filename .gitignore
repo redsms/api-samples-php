@@ -1,2 +1,5 @@
 .idea
-.env
+config.php
+test.sh
+testDev.sh
+dev-compose.yml
