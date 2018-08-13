@@ -1,39 +1,41 @@
 <?php
 
-require 'Redsms/RedsmsApiSimple.php';
+require __DIR__.'/../Redsms/RedsmsApiSimple.php';
 
-echo "redsms.ru api test \n";
+$config = include __DIR__.'/../config.php';
 
-$authData = include 'authData.php';
-$login = $authData['login'];
-$apiKey = $authData['apiKey'];
+echo 'REDSMS.RU sms send test '.PHP_EOL;
 
-$testNumber = 'you_number';
-$smsSenderName = 'you_SenderName';
+$login = $config['login'];
+$apiKey = $config['apiKey'];
 
-$smsApi = new \Redsms\RedsmsApiSimple($login, $apiKey);
+$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, $config['apiUrl']);
+
+$testNumber = $config['phone'];
+$smsSenderName = $config['smsSenderName'];
+
 $lastMessageUuid = '';
 try {
-    echo "Send sms message: \n";
-    $sendResult = $smsApi->sendSMS($testNumber, 'It is test!', $smsSenderName);
+    echo 'Send sms message: '.PHP_EOL;
+    $sendResult = $redsmsApi->sendSMS($testNumber, 'It is test!', $smsSenderName);
     if (!empty($sendResult['items']) && $messages = $sendResult['items'] ) {
         foreach ($messages as $message) {
-            echo $message['to'].":".$message['uuid']."\n";
+            echo $message['to'].':'.$message['uuid'].PHP_EOL;
             $lastMessageUuid = $message['uuid'];
         }
     }
 
     if ($lastMessageUuid) {
-        echo "Get message info: \n";
-        echo json_encode($smsApi->messageInfo($lastMessageUuid)).PHP_EOL;
-        echo "wait 10 sec... \n";
+        echo 'Get message info: '.PHP_EOL;
+        echo json_encode($redsmsApi->messageInfo($lastMessageUuid)).PHP_EOL;
+        echo 'wait 10 sec... '.PHP_EOL;
         sleep(10);
-        echo json_encode($smsApi->messageInfo($lastMessageUuid)).PHP_EOL;
+        echo json_encode($redsmsApi->messageInfo($lastMessageUuid)).PHP_EOL;
     }
 
 } catch (\Exception $e) {
-    echo "error code: ".$e->getCode()."\n";
-    echo "error message: ".$e->getMessage()."\n";
+    echo 'error code: '.$e->getCode().PHP_EOL;
+    echo 'error message: '.$e->getMessage().PHP_EOL;
 }
 
-echo "complete.\n";
+echo 'complete.'.PHP_EOL;

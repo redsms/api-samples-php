@@ -4,8 +4,12 @@ For use the service you need to register and specify api-key in the settings
 https://cp.redsms.ru/settings/
 
 
-**Test this sample**
-
+**Run this samples**
+#### Configure first
+```
+cp config.php.dist config.php 
+```
+##### set your data in config.php and run following command
 ```
  php -f samples/clientInfoSample.php
 ```
