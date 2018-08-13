@@ -10,15 +10,17 @@ Copy the sample configuration file.
 cp config.php.dist config.php
 ```
 
-Put your API key and other data in `config.php` 
+Put your API key and other data in `config.php`
 
-## for view client info run the following command
+## Testing API settings
+
+Run an example local
 
 ```
  php -f samples/clientInfoSample.php
 ```
 
-## Testing the setup
+Run an example inside `docker` from the `samples` directory
 
 ```
 docker-compose run php php -f samples/clientInfoSample.php
