@@ -1,20 +1,23 @@
-**Simple api wrapper for https://cp.redsms.ru service**
+# Simple api wrapper for [redsms](https://cp.redsms.ru) service
 
-For use the service you need to register and specify api-key in the settings
-https://cp.redsms.ru/settings/
+To use the service you need to register and specify API key in the [settings](https://cp.redsms.ru/settings/).
 
+## Configuration
 
-**Run this samples**
-#### Configure first
+copy the sample configuration file
+
 ```
-cp config.php.dist config.php 
+cp config.php.dist config.php
 ```
-##### set your data in config.php and run following command
+
+put your API key and other data in config.php and run the following command
+
 ```
  php -f samples/clientInfoSample.php
 ```
 
-**Test this sample with docker and docker-compose**
+## Testing the setup
+
 ```
 docker-compose run php php -f samples/clientInfoSample.php
 ```
