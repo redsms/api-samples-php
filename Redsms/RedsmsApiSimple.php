@@ -97,6 +97,20 @@ class RedsmsApiSimple
         return $this->sendGet($methodUrl);
     }
 
+    public function senderNameList($data = [])
+    {
+        $methodUrl = 'sender-name';
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function getSenderName($id, $data = [])
+    {
+        $methodUrl = 'sender-name/'.$id;
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
     protected function sendGet($url, $data = [])
     {
         $curlResource = curl_init();
