@@ -5,10 +5,11 @@ namespace Redsms;
 class RedsmsApiSimple
 {
     const SMS_TYPE = 'sms';
-
     const VIBER_TYPE = 'viber';
-
     const RESEND_TYPE = 'viber,sms';
+
+    const VALIDITY_PERIOD_MIN = 60;
+    const VALIDITY_PERIOD_MAX = 1440 * 60;
 
     protected $login;
     protected $apiKey;
@@ -107,6 +108,46 @@ class RedsmsApiSimple
     public function getSenderName($id, $data = [])
     {
         $methodUrl = 'sender-name/'.$id;
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function createDispatch($data = [], $methodUrl = 'dispatch')
+    {
+        return $this->sendPost($methodUrl, $data);
+    }
+
+    public function getDispatch($id, $data = [])
+    {
+        $methodUrl = 'dispatch/'.$id;
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function getDispatchList($data = [])
+    {
+        $methodUrl = 'dispatch';
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function pauseDispatch($id, $data = [])
+    {
+        $methodUrl = 'dispatch/'.$id.'/pause';
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function resumeDispatch($id, $data = [])
+    {
+        $methodUrl = 'dispatch/'.$id.'/resume';
+
+        return $this->sendGet($methodUrl, $data);
+    }
+
+    public function cancelDispatch($id, $data = [])
+    {
+        $methodUrl = 'dispatch/'.$id.'/cancel';
 
         return $this->sendGet($methodUrl, $data);
     }
