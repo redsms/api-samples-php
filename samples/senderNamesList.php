@@ -24,5 +24,6 @@ try {
     }
 } catch (\Exception $e) {
     echo 'error code: '.$e->getCode().PHP_EOL;
-    echo 'error message: '.$e->getMessage().PHP_EOL;
+    fwrite(STDERR, 'Error: '.$e->getMessage().PHP_EOL);
+    exit(1);
 }
