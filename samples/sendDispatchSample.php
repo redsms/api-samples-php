@@ -12,23 +12,13 @@ $apiKey = $config['apiKey'];
 $redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, isset($config['apiUrl']) ? $config['apiUrl'] : null);
 
 $smsSenderName = $config['smsSenderName'];
-$viberSenderName = $config['viberSenderName'];
-$testNumber = $config['phone'];
-
-$textViber = 'It is test for viber!';
-$textSms = 'It is test for sms!';
-$dispatchName = 'It is test dispatch api';
-
 $data = [
-    'route' => \Redsms\RedsmsApiSimple::RESEND_TYPE,
-    'from' => $viberSenderName,
-    'sms.from' => $smsSenderName,
-    'to' => $testNumber,
-    'name' => $dispatchName,
-    'text' => $textViber,
-    'sms.text' => $textSms,
-    'sms.validity' => \Redsms\RedsmsApiSimple::VALIDITY_PERIOD_MAX,
-    'validity' => \Redsms\RedsmsApiSimple::VALIDITY_PERIOD_MIN,
+    'route' => \Redsms\RedsmsApiSimple::SMS_TYPE,
+    'from' => $smsSenderName,
+    'to' => $config['phone'],
+    'name' => 'Тестовая SMS-рассылка',
+    'text' => 'Тестовое сообщение от redsms.ru',
+    'validity' => \Redsms\RedsmsApiSimple::VALIDITY_PERIOD_MAX,
 ];
 
 try {

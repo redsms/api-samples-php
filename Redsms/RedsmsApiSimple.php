@@ -91,11 +91,11 @@ class RedsmsApiSimple
         return $this->sendPost($methodUrl, $data);
     }
 
-    public function messageInfo($uuid)
+    public function messageInfo($uuid, $fields = [])
     {
         $methodUrl = 'message/'.$uuid;
 
-        return $this->sendGet($methodUrl);
+        return $this->sendGet($methodUrl, $fields ? ['fields' => implode(',', $fields)] : []);
     }
 
     public function senderNameList($data = [])
@@ -210,12 +210,16 @@ class RedsmsApiSimple
         $info = curl_getinfo($curlResource);
         $responseArray = json_decode($response, true);
 
-        if (json_last_error() != JSON_ERROR_NONE) {
+        if (!is_array($responseArray)) {
             throw new \Exception('Error response format', $info['http_code']);
         }
 
-        if ($info['http_code'] != 200) {
-            throw new \Exception(isset($responseArray['error_message']) ? $responseArray['error_message'] : 'HTTP request failed', $info['http_code']);
+        if ($info['http_code'] != 200 || (isset($responseArray['success']) && $responseArray['success'] === false)) {
+            $message = isset($responseArray['error_message']) ? $responseArray['error_message'] : 'HTTP request failed';
+            if (!empty($responseArray['errors'])) {
+                $message .= ' '.json_encode($responseArray['errors'], JSON_UNESCAPED_UNICODE);
+            }
+            throw new \Exception($message, $info['http_code']);
         }
 
         return $responseArray;
