@@ -200,9 +200,14 @@ class RedsmsApiSimple
 
     protected function getCurlResult($curlResource)
     {
+        curl_setopt($curlResource, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curlResource, CURLOPT_TIMEOUT, 30);
         $response = curl_exec($curlResource);
+        if ($response === false) {
+            $error = curl_error($curlResource);
+            throw new \RuntimeException($error);
+        }
         $info = curl_getinfo($curlResource);
-        curl_close($curlResource);
         $responseArray = json_decode($response, true);
 
         if (json_last_error() != JSON_ERROR_NONE) {
@@ -210,7 +215,7 @@ class RedsmsApiSimple
         }
 
         if ($info['http_code'] != 200) {
-            throw new \Exception($responseArray['error_message'], $info['http_code']);
+            throw new \Exception(isset($responseArray['error_message']) ? $responseArray['error_message'] : 'HTTP request failed', $info['http_code']);
         }
 
         return $responseArray;
@@ -220,7 +225,7 @@ class RedsmsApiSimple
     {
         ksort($data);
         reset($data);
-        $ts = microtime().rand(0, 10000);
+        $ts = uniqid('', true);
 
         return [
             'login: '.$this->login,

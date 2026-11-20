@@ -9,7 +9,7 @@ echo 'REDSMS.RU create dispatch '.PHP_EOL;
 $login = $config['login'];
 $apiKey = $config['apiKey'];
 
-$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, $config['apiUrl']);
+$redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, isset($config['apiUrl']) ? $config['apiUrl'] : null);
 
 $smsSenderName = $config['smsSenderName'];
 $viberSenderName = $config['viberSenderName'];
@@ -45,7 +45,8 @@ try {
     };
 } catch (\Exception $e) {
     echo 'error code: '.$e->getCode().PHP_EOL;
-    echo 'error message: '.$e->getMessage().PHP_EOL;
+    fwrite(STDERR, 'Error: '.$e->getMessage().PHP_EOL);
+    exit(1);
 }
 
 echo 'complete.'.PHP_EOL;

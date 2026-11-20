@@ -1,27 +1,19 @@
-# Simple api wrapper for [redsms](https://cp.redsms.ru) service
+# RED SMS · PHP
 
-To use the service you need to register and specify API key in the [settings](https://cp.redsms.ru/settings/).
+Нужны PHP CLI и расширение curl. Из корня репозитория:
 
-## Configuration
-
-Copy the sample configuration file.
-
-```
+```sh
 cp config.php.dist config.php
+php -m
 ```
 
-Put your API key and other data in `config.php`
+Убедитесь, что в списке есть `curl`. Внесите в `config.php` логин кабинета, API-ключ, свой номер и зарегистрированные имена отправителей.
 
-## Testing API settings
-
-Run an example local
-
-```
- php -f samples/clientInfoSample.php
+```sh
+php samples/clientInfoSample.php
+php samples/senderNamesList.php
 ```
 
-Run an example inside `docker` from the `samples` directory
+Для отправки одного платного SMS выполните `php samples/smsSendsample.php`. Скрипт выведет UUID принятого сообщения и запросит его статус. Конечный статус может появиться позже.
 
-```
-docker-compose run php php -f samples/clientInfoSample.php
-```
+[Документация HTTP API](https://docs.redsms.ru/http/)
