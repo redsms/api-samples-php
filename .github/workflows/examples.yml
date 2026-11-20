@@ -14,3 +14,4 @@ jobs:
           php -S 127.0.0.1:8087 tests/router.php > /tmp/redsms-server.log 2>&1 &
           for i in {1..30}; do nc -z 127.0.0.1 8087 && break; sleep 0.2; done
           php tests/smoke.php
+          python3 tests/test_sms_command.py

@@ -21,7 +21,7 @@ try {
     $file = array_shift($files['items']);
     $buttonText = 'Кнопка';
     $buttonUrl = 'https://cp.redsms.ru/';
-    $textViber = 'Тестовое сообщение';
+    $textViber = 'Тестовое сообщение от redsms.ru';
 
     if(isset($file)) {
         $imageUrl = $file['url'];

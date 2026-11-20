@@ -15,8 +15,8 @@ $smsSenderName = $config['smsSenderName'];
 $viberSenderName = $config['viberSenderName'];
 $testNumber = $config['phone'];
 
-$textViber = 'It is test for viber!';
-$textSms = 'It is test for sms!';
+$textViber = 'Тестовое сообщение от redsms.ru';
+$textSms = 'Тестовое сообщение от redsms.ru';
 $dispatchName = 'It is test dispatch api';
 
 $data = [
