@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'login' => 'you_login',
-    'apiKey' => 'you_api_key',
-    'phone' => 'you_phone',
-    'smsSenderName' => 'REDSMS.RU',
+    'login' => 'YOUR_LOGIN',
+    'apiKey' => 'YOUR_API_KEY',
+    'phone' => 'YOUR_PHONE',
+    'smsSenderName' => 'YOUR_SMS_SENDER',
 ];
