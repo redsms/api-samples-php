@@ -11,7 +11,11 @@ $apiKey = $config['apiKey'];
 
 $redsmsApi = new \Redsms\RedsmsApiSimple($login, $apiKey, isset($config['apiUrl']) ? $config['apiUrl'] : null);
 
-$testNumber = $config['phone'];
+$testNumber = isset($config['phone']) ? $config['phone'] : '';
+if (!is_string($testNumber) || !preg_match('/\A[+]?[1-9][0-9]{1,14}\z/', $testNumber)) {
+    fwrite(STDERR, 'Укажите один номер в международном формате, например +12025550123.'.PHP_EOL);
+    exit(1);
+}
 $smsSenderName = $config['smsSenderName'];
 
 try {
