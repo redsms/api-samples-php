@@ -5,7 +5,9 @@ namespace Redsms;
 class RedsmsApiSimple
 {
     const SMS_TYPE = 'sms';
+    /** @deprecated Viber routes are no longer available. */
     const VIBER_TYPE = 'viber';
+    /** @deprecated Viber routes are no longer available. */
     const RESEND_TYPE = 'viber,sms';
 
     const VALIDITY_PERIOD_MIN = 60;
@@ -66,6 +68,7 @@ class RedsmsApiSimple
         return $this->sendPost($methodUrl, $data);
     }
 
+    /** @deprecated Viber routes are no longer available. */
     public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl)
     {
         $methodUrl = 'message';
